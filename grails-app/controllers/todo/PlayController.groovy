@@ -26,4 +26,18 @@ class PlayController {
       def name = params.name ?: "Grails"
       render "Hello ${name}"
     }
+
+    def firstTodo(){
+      def todo = new Todo(subject:"Hello World", dueDate: new Date()+10, description:"First todo helloworl")
+      if(todo.save(flush:true)){
+        render "success create todo"
+      }else{
+        if(todo.hasError()){
+          todo.errors.each{
+            println it
+          }
+        }
+        render "error create todo"
+      }
+    }
 }
